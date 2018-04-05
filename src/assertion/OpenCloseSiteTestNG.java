@@ -1,6 +1,11 @@
 package assertion;
 
+import action.FindElementBasics;
+import arrange.DriverWait;
 import arrange.OpenCloseSite;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.BrowserType;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -11,16 +16,28 @@ import static org.testng.Assert.*;
  * Generated at: 02.04.2018 2018
  */
 public class OpenCloseSiteTestNG extends OpenCloseSite {
+    WebDriver webDriver;
 
     @org.testng.annotations.BeforeMethod
     public void setUp() {
+        webDriver = OpenCloseSite.openSiteByUrlBrowser("http://www.google.at", BrowserType.CHROME);
+        DriverWait.waitForSecondsTimeOut(10, webDriver);
+        webDriver.manage().window().maximize();
+    }
+
+
+    @org.testng.annotations.Test
+    public void testOpenSiteByUrl() {
+        assertTrue(FindElementBasics.findById(webDriver, "lst-ib").getAttribute("name").equals("q"));
+    }
+
+    @org.testng.annotations.Test
+    void openSiteByUrlBrowser() {
+        FindElementBasics.findByXPath(webDriver, "//*[@id='hplogo']");
     }
 
     @org.testng.annotations.AfterMethod
     public void tearDown() {
-    }
-
-    @org.testng.annotations.Test
-    public void testOpenSiteByUrl() {
+        webDriver.close();
     }
 }
