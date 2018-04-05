@@ -14,4 +14,7 @@ public class ElementOperations {
     public static void click(WebElement element){
         element.click();
     }
+    public static String getParameter(WebElement webElement, String parameter){
+        return webElement.getAttribute(parameter);
+    }
 }

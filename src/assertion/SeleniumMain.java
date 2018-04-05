@@ -2,12 +2,15 @@ package assertion;
 
 import action.ElementOperations;
 import action.FindElementBasics;
+import arrange.DriverWait;
 import arrange.OpenCloseSite;
 import arrange.Wait;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.BrowserType;
 
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 /**
  * Package: assertion
@@ -16,8 +19,13 @@ import java.util.concurrent.TimeUnit;
  */
 public class SeleniumMain {
     public static void main(String[] args) {
+        checkLocator();
 
+    }
+
+    public static void checkLocator() {
         WebDriver webDriver = OpenCloseSite.openSiteByUrlBrowser("http://www.google.at", BrowserType.CHROME);
+        DriverWait.waitForSecondsTimeOut(10, webDriver);
         //ElementOperations.setText(FindElementBasics.findById(webDriver, "lst-ib"), "anecon");
         //ElementOperations.setText(FindElementBasics.findByXPath(webDriver, "//*[@name='q']"), "anecon");
         ElementOperations.setText(FindElementBasics.findByName(webDriver, "q"), "anecon");
@@ -30,22 +38,34 @@ public class SeleniumMain {
         //ElementOperations.click(FindElementBasics.findByXPath(webDriver, "//*[@class ='gb_3f gb_Fa gb_Jb' and contains(text(),'An')]"));
         ElementOperations.click(FindElementBasics.findByXPath(webDriver, "//a[@href='https://www.google.at/intl/de/options/'and@title='Google-Apps']"));
         try {
-            Wait.waitForSeconds(2);
+            Wait.waitForSeconds(1);
         } catch (InterruptedException e) {
 
         }
+
+        // Liste alle Element in Apps
+        List<WebElement> eleList = webDriver.findElements(By.xpath("//ul[@class='gb_ia gb_ba']//following-sibling::li/a"));
+        for (WebElement webEle : eleList) {
+            System.out.println(webEle.getAttribute("class") + " " + webEle.getAttribute("data-pid") + " " + webEle.getAttribute("href"));
+        }
+
+        System.out.println("CSS. : " + ElementOperations.getParameter(webDriver.findElement(By.cssSelector("#gb31 > span.gb_2")), "class") + " " +
+                ElementOperations.getParameter(webDriver.findElement(By.cssSelector("#gb31 > span.gb_2")), "style"));
+
+
         //ElementOperations.click(FindElementBasics.findByXPath(webDriver, "//*[@id='gb5']/span[1]"));
         ElementOperations.click(FindElementBasics.findByXPath(webDriver, "//a[starts-with(text(),'Mehr')]"));
         try {
-            Wait.waitForSeconds(2);
+            Wait.waitForSeconds(1);
         } catch (InterruptedException e) {
 
         }
-        ElementOperations.click(FindElementBasics.findByXPath(webDriver, "//*[@id='gb136']/span[2]"));
+        //ElementOperations.click(FindElementBasics.findByXPath(webDriver, "//*[@id='gb136']/span[2]"));
+        ElementOperations.click(FindElementBasics.findByXPath(webDriver, "//*[@class='gb_2']//parent::a [@data-pid='429']"));
 
 
         try {
-            Wait.waitForSeconds(3);
+            Wait.waitForSeconds(2);
         } catch (InterruptedException e) {
 
         }
