@@ -17,4 +17,7 @@ public class ElementOperations {
     public static String getParameter(WebElement webElement, String parameter){
         return webElement.getAttribute(parameter);
     }
+    public static String getText(WebElement webElement){
+        return webElement.getText();
+    }
 }

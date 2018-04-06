@@ -29,6 +29,7 @@ public class SeleniumMain {
         //ElementOperations.setText(FindElementBasics.findById(webDriver, "lst-ib"), "anecon");
         //ElementOperations.setText(FindElementBasics.findByXPath(webDriver, "//*[@name='q']"), "anecon");
         ElementOperations.setText(FindElementBasics.findByName(webDriver, "q"), "anecon");
+        System.out.println("Image search: "+ElementOperations.getText(FindElementBasics.findByXPath(webDriver,"//a[@class='gb_P'][@data-pid='2']")));
         //ElementOperations.click(FindElementBasics.findByLinkText(webDriver, "Gmail"));
         //ElementOperations.click(FindElementBasics.findByLinkPartialText(webDriver, "Über Google"));
         //ElementOperations.click(FindElementBasics.findByXPath(webDriver, "//input[@class='lsb'][@value='Auf gut Glück!']"));
