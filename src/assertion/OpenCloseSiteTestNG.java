@@ -35,9 +35,28 @@ public class OpenCloseSiteTestNG extends OpenCloseSite {
     void openSiteByUrlBrowser() {
         FindElementBasics.findByXPath(webDriver, "//*[@id='hplogo']");
     }
+    @Test
+    void getUrl(){
+        assertTrue(("https://www.google.at/?gws_rd=ssl".equals(webDriver.getCurrentUrl())));
+    }
+    @Test
+    void getTitle(){
+        assertTrue("Google".equals(webDriver.getTitle()));
+    }
+
+    @Test
+    void navigation(){
+        webDriver.navigate().to("https://mail.google.com/mail/u/0/?tab=wm#inbox");
+        assertTrue(("https://www.google.com/intl/de/gmail/about/#".equals(webDriver.getCurrentUrl())));
+        webDriver.navigate().back();
+        assertTrue(("https://www.google.at/?gws_rd=ssl".equals(webDriver.getCurrentUrl())));
+        webDriver.navigate().forward();
+        assertTrue(("https://www.google.com/intl/de/gmail/about/#".equals(webDriver.getCurrentUrl())));
+    }
 
     @org.testng.annotations.AfterMethod
-    public void tearDown() {
+    public void tearDown() throws InterruptedException {
+        Thread.sleep(1000);
         webDriver.close();
     }
 }
